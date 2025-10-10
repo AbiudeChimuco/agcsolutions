@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import Head from "next/head";
 import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ import {
   FiNavigation,
   FiMessageCircle,
   FiBox,
+  FiUsers,
 } from "react-icons/fi";
 
 export default function Home() {
@@ -215,7 +217,6 @@ export default function Home() {
             </div>
           </div>
         </motion.section>
-
         {/* Produtos */}
         <motion.section
           id="produtos"
@@ -245,8 +246,13 @@ export default function Home() {
               {[
                 {
                   icon: <FiBox />,
-                  nome: "Sistema de Gestão Agrícola",
-                  desc: "Controle total da produção agrícola: animais, colheitas, relatórios e indicadores inteligentes, monitoramento de pastos.",
+                  nome: "Sistema de Gestão  Agropecuário",
+                  desc: "Controle total da produção agrícola: animais, colheitas, relatórios e indicadores inteligentes, monitoramento de pastos com cerca digital.",
+                },
+                {
+                  icon: <FiUsers />,
+                  nome: "Gestão Escolar",
+                  desc: "Cadastro de alunos, turmas, notas, frequência, calendário acadêmico e comunicação entre professores, alunos e pais.",
                 },
               ].map((p, i) => (
                 <motion.div
