@@ -87,12 +87,23 @@ export default function Home() {
             onClick={() => scrollToSection("inicio")}
           >
             <img src="/logo.jpg" alt="AGC Solutions" className="logo" />
-            <div>
+            <div className="logo-text">
               <h1>AGC Solutions</h1>
               <p>Inovação e tecnologia ao seu alcance</p>
             </div>
           </div>
 
+          {/* Ícone do menu mobile */}
+          <div
+            className={`menu-toggle ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          {/* Menu principal */}
           <nav className={`menu ${menuOpen ? "open" : ""}`}>
             {menuItems.map(({ id, label }) => (
               <a
@@ -105,6 +116,14 @@ export default function Home() {
             ))}
           </nav>
         </div>
+
+        {/* Overlay escuro quando o menu está aberto */}
+        {menuOpen && (
+          <div
+            className="menu-overlay"
+            onClick={() => setMenuOpen(false)}
+          ></div>
+        )}
       </header>
 
       {/* ===== HERO ===== */}
@@ -159,7 +178,7 @@ export default function Home() {
                 {
                   icon: <FiCpu />,
                   t: "Assistência Técnica",
-                  d: "Manutenção e otimização de computadores.",
+                  d: "Manutenção ,montagem e optimização de computadores.",
                 },
                 {
                   icon: <FiSettings />,
@@ -178,12 +197,12 @@ export default function Home() {
                 },
                 {
                   icon: <FiNavigation />,
-                  t: "GPS e Rastreamento",
-                  d: "Venda, instalação e monitoramento inteligente.",
+                  t: "GPS ",
+                  d: "Venda, instalação e monitoramento 24/24 com cerca digital.",
                 },
                 {
                   icon: <FiCamera />,
-                  t: "Instalação de Câmeras",
+                  t: "CCTV",
                   d: "Soluções completas de segurança eletrónica.",
                 },
               ].map((s, i) => (
