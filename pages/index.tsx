@@ -81,6 +81,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
+
+
       {/* ===== CABEÇALHO ===== */}
       <header className="topbar fixed-top">
         <div className="topbar-container">
@@ -418,7 +420,7 @@ export default function Home() {
             Desenvolvido por <span>AGC Solutions</span>
           </p>
         </div>
-      </footer>
+      </footer> 
 
       {/* BOTÃO FIXO WHATSAPP */}
       <a
