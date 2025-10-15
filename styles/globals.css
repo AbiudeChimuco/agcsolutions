@@ -91,6 +91,12 @@ img {
   height: 18px;
   cursor: pointer;
 }
+.menu a,
+.menu button,
+.navbar a,
+.navbar button {
+  cursor: pointer;
+}
 
 .menu-toggle span {
   height: 3px;
