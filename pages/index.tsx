@@ -1,7 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-no-undef */
 import Head from "next/head";
-import { motion, Variants } from "framer-motion";
-import { useEffect, useState } from "react";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import {
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useEffect,
+  useState,
+} from "react";
 import {
   FiMail,
   FiPhone,
@@ -37,8 +46,9 @@ export default function Home() {
 
   const [activeSection, setActiveSection] = useState("inicio");
   const [menuOpen, setMenuOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [produtoSelecionado, setProdutoSelecionado] = useState<any>(null);
 
-  // Atualiza o menu ativo conforme a rolagem
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll("section");
@@ -76,15 +86,13 @@ export default function Home() {
         <title>AGC Solutions — Soluções Tecnológicas</title>
         <meta
           name="description"
-          content="AGC Solutions — Inovação ES Tecnologia Ao Seu Alcance."
+          content="AGC Solutions — Desenvolvemos software, websites e aplicativos inteligentes para otimizar negócios e impulsionar a inovação digital."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-
-
       {/* ===== CABEÇALHO ===== */}
-      <header className="topbar fixed-top">
+      <header className="topbar">
         <div className="topbar-container">
           <div
             className="logo-section"
@@ -97,7 +105,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Ícone do menu mobile */}
+          {/* Botão do menu mobile */}
           <div
             className={`menu-toggle ${menuOpen ? "open" : ""}`}
             onClick={() => setMenuOpen(!menuOpen)}
@@ -121,7 +129,7 @@ export default function Home() {
           </nav>
         </div>
 
-        {/* Overlay escuro quando o menu está aberto */}
+        {/* Overlay escuro */}
         {menuOpen && (
           <div
             className="menu-overlay"
@@ -142,11 +150,12 @@ export default function Home() {
             Transformamos <span className="highlight">ideias</span> em{" "}
             <span className="highlight">soluções digitais</span>.
           </h2>
+
           <p className="hero-subtext">
-            Desenvolvemos <strong>softwares, websites</strong> e{" "}
-            <strong>aplicativos inteligentes</strong> que otimizam processos,
-            conectam pessoas e aceleram negócios.
+            Desenvolvemos softwares, websites e aplicativos inteligentes que
+            otimizam processos, conectam pessoas e aceleram negócios.
           </p>
+
           <div className="cta">
             <button
               onClick={() => scrollToSection("servicos")}
@@ -164,7 +173,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ===== SEÇÕES ===== */}
+      {/* ===== CONTEÚDO PRINCIPAL ===== */}
       <main>
         {/* Serviços */}
         <motion.section
@@ -182,7 +191,7 @@ export default function Home() {
                 {
                   icon: <FiCpu />,
                   t: "Assistência Técnica",
-                  d: "Manutenção ,montagem e optimização de computadores.",
+                  d: "Manutenção, montagem e otimização de computadores.",
                 },
                 {
                   icon: <FiSettings />,
@@ -201,7 +210,7 @@ export default function Home() {
                 },
                 {
                   icon: <FiNavigation />,
-                  t: "GPS ",
+                  t: "GPS",
                   d: "Venda, instalação e monitoramento 24/24 com cerca digital.",
                 },
                 {
@@ -222,39 +231,44 @@ export default function Home() {
         {/* Produtos */}
         <motion.section
           id="produtos"
-          className="section produtos bg-gradient"
+          className="section produtos"
           variants={fadeInUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: false, amount: 0.3 }}
         >
           <div className="container">
-            <motion.h2
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.42, 0, 0.58, 1] }}
-              viewport={{ once: false, amount: 0.3 }}
-              className="title"
-            >
-              Nossos Produtos
-            </motion.h2>
-
+            <h2>Nossos Produtos</h2>
             <p className="intro-text">
-              Soluções desenvolvidas para automatizar processos, simplificar
-              operações e impulsionar o crescimento do seu negócio.
+              Soluções desenvolvidas para automatizar processos e impulsionar o
+              crescimento do seu negócio.
             </p>
 
             <div className="produtos-grid">
               {[
                 {
                   icon: <FiBox />,
-                  nome: "Sistema de Gestão  Agropecuário",
-                  desc: "Controle total da produção agrícola: animais, colheitas, relatórios e indicadores inteligentes, monitoramento de pastos com cerca digital.",
+                  nome: "Gestão Agropecuária",
+                  desc: "Controle total da produção agrícola e pecuária, com relatórios e indicadores inteligentes.",
+                  funcionalidades: [
+                    "Cadastro de animais, lotes e raças",
+                    "Gestão de produção, natalidade e mortalidade",
+                    "Relatórios de desempenho e exportação em PDF/Excel",
+                    "Alertas automáticos e controle sanitário",
+                    "Dashboard com indicadores e previsões inteligentes",
+                  ],
                 },
                 {
                   icon: <FiUsers />,
                   nome: "Gestão Escolar",
-                  desc: "Cadastro de alunos, turmas, notas, frequência, calendário acadêmico e comunicação entre professores, alunos e pais.",
+                  desc: "Administração completa de alunos, professores e turmas.",
+                  funcionalidades: [
+                    "Matrículas, notas e presenças online",
+                    "Gestão de turmas, horários e disciplinas",
+                    "Controle financeiro e mensalidades",
+                    "Portal do aluno e professor integrado",
+                    "Relatórios automáticos e comunicação interna",
+                  ],
                 },
               ].map((p, i) => (
                 <motion.div
@@ -266,11 +280,96 @@ export default function Home() {
                   <div className="icon-wrapper">{p.icon}</div>
                   <h3>{p.nome}</h3>
                   <p>{p.desc}</p>
-                  <button className="btn small">Saiba mais</button>
+                  <button
+                    className="btn small"
+                    onClick={() => setProdutoSelecionado(p)}
+                  >
+                    Saiba mais
+                  </button>
                 </motion.div>
               ))}
             </div>
           </div>
+
+          {/* Modal */}
+          <AnimatePresence>
+            {produtoSelecionado && (
+              <motion.div
+                className="modal-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <motion.div
+                  className="modal-content"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <button
+                    className="modal-close"
+                    onClick={() => setProdutoSelecionado(null)}
+                  >
+                    ✖
+                  </button>
+                  <div className="modal-header">
+                    <div className="icon-large">{produtoSelecionado.icon}</div>
+                    <h2>{produtoSelecionado.nome}</h2>
+                  </div>
+                  <p className="modal-desc">{produtoSelecionado.desc}</p>
+                  <h3>Funcionalidades Principais</h3>
+                  <ul className="func-list">
+                    {produtoSelecionado.funcionalidades.map(
+                      (
+                        f:
+                          | string
+                          | number
+                          | bigint
+                          | boolean
+                          | ReactElement<
+                              unknown,
+                              string | JSXElementConstructor<any>
+                            >
+                          | Iterable<ReactNode>
+                          | ReactPortal
+                          | Promise<
+                              | string
+                              | number
+                              | bigint
+                              | boolean
+                              | ReactPortal
+                              | ReactElement<
+                                  unknown,
+                                  string | JSXElementConstructor<any>
+                                >
+                              | Iterable<ReactNode>
+                              | null
+                              | undefined
+                            >
+                          | null
+                          | undefined,
+                        idx: Key | null | undefined
+                      ) => (
+                        <li key={idx}>✅ {f}</li>
+                      )
+                    )}
+                  </ul>
+
+                  <a
+                    href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                      `Olá, quero saber mais sobre o software ${produtoSelecionado.nome}!`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn primary"
+                  >
+                    💬 Falar com um especialista
+                  </a>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.section>
 
         {/* Missão */}
@@ -285,33 +384,44 @@ export default function Home() {
           <div className="container">
             <h2>Nossa Missão</h2>
             <p className="missao-text">
-              Na <strong>AGC Solutions</strong>, buscamos transformar o presente
-              e construir o futuro através de soluções tecnológicas inovadoras,
-              éticas e sustentáveis.
+              Na AGC Solutions, acreditamos que a tecnologia é o alicerce do
+              progresso. Nosso propósito é **simplificar, inovar e transformar**
+              o modo como pessoas e empresas interagem com o digital —
+              promovendo crescimento sustentável e impacto real em Angola e
+              além.
             </p>
+
             <div className="missao-grid">
               {[
                 {
-                  icon: "🚀",
+                  icon: "",
                   titulo: "Inovação",
-                  texto: "Criamos tecnologias que antecipam o futuro.",
+                  texto:
+                    "Desenvolvemos soluções inteligentes que antecipam o futuro e impulsionam o crescimento.",
                 },
                 {
-                  icon: "🤝",
+                  icon: "",
                   titulo: "Compromisso",
-                  texto: "Trabalhamos com transparência e excelência.",
+                  texto:
+                    "Trabalhamos com ética, transparência e dedicação, construindo relações sólidas e duradouras.",
                 },
                 {
-                  icon: "🌍",
+                  icon: "",
                   titulo: "Impacto",
-                  texto: "Contribuímos para o crescimento digital de Angola.",
+                  texto:
+                    "Transformamos o cenário digital de Angola com tecnologia acessível.",
                 },
               ].map((m, i) => (
-                <div key={i} className="missao-card">
+                <motion.div
+                  key={i}
+                  className="missao-card"
+                  whileHover={{ scale: 1.05, y: -6 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                >
                   <div className="icon">{m.icon}</div>
                   <h3>{m.titulo}</h3>
                   <p>{m.texto}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -331,43 +441,26 @@ export default function Home() {
               className="sobre-text"
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: [0.42, 0, 0.58, 1] }}
-              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8 }}
             >
               <h2>Quem Somos</h2>
               <p>
-                A <strong className="empresa">AGC Solutions</strong> é uma
-                empresa angolana especializada em{" "}
-                <strong>desenvolvimento de software</strong>,{" "}
-                <strong>tecnologia</strong> e <strong>inovação digital</strong>.
+                A AGC Solutions é uma empresa angolana especializada em
+                desenvolvimento de software, tecnologia e inovação digital .
               </p>
               <p>
-                Nosso compromisso é promover a{" "}
-                <strong>transformação tecnológica</strong> das organizações, com
-                foco em eficiência, segurança e escalabilidade.
+                Nosso foco é a transformação tecnológica das empresas, com
+                eficiência, segurança e escalabilidade.
               </p>
-              <p>
-                Acreditamos que a tecnologia é o motor do progresso, e
-                trabalhamos todos os dias para criar um futuro mais conectado,
-                ágil e inovador.
-              </p>
-              <button className="btn saiba-mais">Saiba mais</button>
             </motion.div>
 
             <motion.div
               className="sobre-imagem"
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.42, 0, 0.58, 1],
-                delay: 0.2,
-              }}
-              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="img-wrapper">
-                <img src="/logo.jpg" alt="AGC Solutions" />
-              </div>
+              <img src="/logo.jpg" alt="AGC Solutions" />
             </motion.div>
           </div>
         </motion.section>
@@ -382,47 +475,39 @@ export default function Home() {
           viewport={{ once: false, amount: 0.3 }}
         >
           <div className="container contato-container">
-            <div className="contato-info">
-              <h2>Entre em Contato</h2>
-              <p>Tem um projeto? Fale connosco — teremos prazer em ajudar.</p>
-              <ul className="contact-list">
-                <li>
-                  <FiMapPin /> Rua Cidade de Cabinda, Lobito — Benguela, Angola
-                </li>
-                <li>
-                  <FiMail /> agcsolutions@gmail.com
-                </li>
-                <li>
-                  <FiPhone /> +244 957 008 342
-                </li>
-              </ul>
-              <a
-                href={`https://wa.me/${whatsappNumber}?text=${whatsappText}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp"
-              >
-                <FiMessageCircle size={20} /> Falar pelo WhatsApp
-              </a>
-            </div>
+            <h2>Entre em Contato</h2>
+            <p>Tem um projeto? Fale connosco, teremos prazer em ajudar.</p>
+            <ul className="contact-list">
+              <li>
+                <FiMapPin /> Rua Cidade de Cabinda, Lobito — Benguela, Angola
+              </li>
+              <li>
+                <FiMail /> agcsolutions@gmail.com
+              </li>
+              <li>
+                <FiPhone /> +244 957 008 342
+              </li>
+            </ul>
+            <a
+              href={`https://wa.me/${whatsappNumber}?text=${whatsappText}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-whatsapp"
+            >
+              <FiMessageCircle size={20} /> Falar pelo WhatsApp
+            </a>
           </div>
         </motion.section>
       </main>
 
       {/* ===== FOOTER ===== */}
       <footer className="footer">
-        <div className="container footer-content">
-          <p>
-            © {new Date().getFullYear()} <strong>AGC Solutions</strong> — Todos
-            os direitos reservados.
-          </p>
-          <p className="dev-credit">
-            Desenvolvido por <span>AGC Solutions</span>
-          </p>
+        <div className="container">
+          <p>© {new Date().getFullYear()} AGC Solutions</p>
         </div>
-      </footer> 
+      </footer>
 
-      {/* BOTÃO FIXO WHATSAPP */}
+      {/* Botão fixo WhatsApp */}
       <a
         className="whatsapp"
         href={`https://wa.me/${whatsappNumber}?text=${whatsappText}`}
