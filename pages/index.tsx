@@ -364,7 +364,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="btn primary"
                   >
-                    💬 Falar com um especialista
+                    Falar com um especialista
                   </a>
                 </motion.div>
               </motion.div>
