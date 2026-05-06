@@ -29,7 +29,7 @@ import {
 export default function Home() {
   const whatsappNumber = "244957008342";
   const whatsappText = encodeURIComponent(
-    "Olá 👋, quero mais informações sobre os serviços da AGC Solutions."
+    "Olá 👋, quero mais informações sobre os serviços da Origami IT.",
   );
 
   const fadeInUp: Variants = {
@@ -83,10 +83,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>AGC Solutions — Soluções Tecnológicas</title>
+        <title>Origami IT — Soluções Tecnológicas</title>
         <meta
           name="description"
-          content="AGC Solutions — Desenvolvemos software, websites e aplicativos inteligentes para otimizar negócios e impulsionar a inovação digital."
+          content="Origami IT — Desenvolvemos software, websites e aplicativos inteligentes para otimizar negócios e impulsionar a inovação digital."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -98,9 +98,9 @@ export default function Home() {
             className="logo-section"
             onClick={() => scrollToSection("inicio")}
           >
-            <img src="/logo.jpg" alt="AGC Solutions" className="logo" />
+            <img src="/origami.pNg" alt="Origami IT" className="logo" />
             <div className="logo-text">
-              <h1>AGC Solutions</h1>
+              <h1>Origami IT</h1>
               <p>Inovação e tecnologia ao seu alcance</p>
             </div>
           </div>
@@ -349,16 +349,16 @@ export default function Home() {
                             >
                           | null
                           | undefined,
-                        idx: Key | null | undefined
+                        idx: Key | null | undefined,
                       ) => (
                         <li key={idx}>✅ {f}</li>
-                      )
+                      ),
                     )}
                   </ul>
 
                   <a
                     href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                      `Olá, quero saber mais sobre o software ${produtoSelecionado.nome}!`
+                      `Olá, quero saber mais sobre o software ${produtoSelecionado.nome}!`,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -384,7 +384,7 @@ export default function Home() {
           <div className="container">
             <h2>Nossa Missão</h2>
             <p className="missao-text">
-              Na AGC Solutions, acreditamos que a tecnologia é o alicerce do
+              Na Origami IT, acreditamos que a tecnologia é o alicerce do
               progresso. Nosso propósito é **simplificar, inovar e transformar**
               o modo como pessoas e empresas interagem com o digital —
               promovendo crescimento sustentável e impacto real em Angola e
@@ -445,7 +445,7 @@ export default function Home() {
             >
               <h2>Quem Somos</h2>
               <p>
-                A AGC Solutions é uma empresa angolana especializada em
+                A Origami IT é uma empresa angolana especializada em
                 desenvolvimento de software, tecnologia e inovação digital .
               </p>
               <p>
@@ -460,7 +460,7 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <img src="/logo.jpg" alt="AGC Solutions" />
+              <img src="/origami.png" alt="Origami IT" />
             </motion.div>
           </div>
         </motion.section>
@@ -482,7 +482,7 @@ export default function Home() {
                 <FiMapPin /> Rua Cidade de Cabinda, Lobito — Benguela, Angola
               </li>
               <li>
-                <FiMail /> agcsolutions@gmail.com
+                <FiMail /> origamiitao@gmail.com
               </li>
               <li>
                 <FiPhone /> +244 957 008 342
@@ -503,7 +503,7 @@ export default function Home() {
       {/* ===== FOOTER ===== */}
       <footer className="footer">
         <div className="container">
-          <p>© {new Date().getFullYear()} AGC Solutions</p>
+          <p>© {new Date().getFullYear()} Origami IT</p>
         </div>
       </footer>
 
