@@ -98,7 +98,7 @@ export default function Home() {
             className="logo-section"
             onClick={() => scrollToSection("inicio")}
           >
-            <img src="/origami.pNg" alt="Origami IT" className="logo" />
+            <img src="/origami.png" alt="Origami IT" className="logo" />
             <div className="logo-text">
               <h1>Origami IT</h1>
               <p>Inovação e tecnologia ao seu alcance</p>
